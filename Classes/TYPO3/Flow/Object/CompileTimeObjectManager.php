@@ -200,7 +200,9 @@ class CompileTimeObjectManager extends ObjectManager {
 							$availableClassNames[$packageKey][] = $fullClassName;
 						}
 					}
-					$availableClassNames[$packageKey] = array_unique($availableClassNames[$packageKey]);
+					if (isset($availableClassNames[$packageKey])) {
+						$availableClassNames[$packageKey] = array_unique($availableClassNames[$packageKey]);
+					}
 				}
 			}
 		}

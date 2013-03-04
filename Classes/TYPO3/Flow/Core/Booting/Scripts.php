@@ -210,7 +210,7 @@ class Scripts {
 
 			// The compile sub command will only be run if the code cache is completely empty:
 		if ($objectConfigurationCache->has('allCompiledCodeUpToDate') === FALSE) {
-			self::executeCommand('typo3.flow:core:compile', $settings);
+			static::executeCommand('typo3.flow:core:compile', $settings);
 			if (isset($settings['persistence']['doctrine']['enable']) && $settings['persistence']['doctrine']['enable'] === TRUE) {
 				self::compileDoctrineProxies($bootstrap);
 			}
@@ -453,7 +453,7 @@ class Scripts {
 		if ($objectConfigurationCache->has('doctrineProxyCodeUpToDate') === FALSE && $coreCache->has('doctrineSetupRunning') === FALSE) {
 			$coreCache->set('doctrineSetupRunning', 'White Russian', array(), 60);
 			$systemLogger->log('Compiling Doctrine proxies', LOG_DEBUG);
-			self::executeCommand('typo3.flow:doctrine:compileproxies', $settings);
+			static::executeCommand('typo3.flow:doctrine:compileproxies', $settings);
 			$coreCache->remove('doctrineSetupRunning');
 			$objectConfigurationCache->set('doctrineProxyCodeUpToDate', TRUE);
 		}

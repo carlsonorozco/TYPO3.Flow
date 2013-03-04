@@ -211,7 +211,9 @@ class CacheManager {
 				if (count($modifiedClassNamesWithUnderscores) > 0) {
 					$reflectionStatusCache = $this->getCache('Flow_Reflection_Status');
 					foreach (array_keys($modifiedClassNamesWithUnderscores) as $classNameWithUnderscores) {
-						$reflectionStatusCache->remove($classNameWithUnderscores);
+						if ($reflectionStatusCache->isValidEntryIdentifier($classNameWithUnderscores)) {
+							$reflectionStatusCache->remove($classNameWithUnderscores);
+						}
 						if ($flushDoctrineProxyCache === FALSE && preg_match('/_Domain_Model_(.+)/', $classNameWithUnderscores) === 1) {
 							$flushDoctrineProxyCache = TRUE;
 						}

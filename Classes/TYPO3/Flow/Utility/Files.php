@@ -26,9 +26,9 @@ class Files {
 	 */
 	static public function getUnixStylePath($path) {
 		if (strpos($path, ':') === FALSE) {
-			return str_replace('//', '/', str_replace('\\', '/', $path));
+			return str_replace('//', '/', strtr($path, '\\', '/'));
 		} else {
-			return preg_replace('/^([a-z]{2,}):\//', '$1://', str_replace('//', '/', str_replace('\\', '/', $path)));
+			return preg_replace('/^([a-z]{2,}):\//', '$1://', str_replace('//', '/', strtr($path, '\\', '/')));
 		}
 	}
 
@@ -53,19 +53,7 @@ class Files {
 	 * @see getUnixStylePath()
 	 */
 	static public function concatenatePaths(array $paths) {
-		$resultingPath = '';
-		foreach ($paths as $index => $path) {
-			$path = self::getUnixStylePath($path);
-			if ($index === 0) {
-				$path = rtrim($path, '/');
-			} else {
-				$path = trim($path, '/');
-			}
-			if (strlen($path) > 0) {
-				$resultingPath .= $path . '/';
-			}
-		}
-		return rtrim($resultingPath, '/');
+		return rtrim(self::getUnixStylePath(implode('/', $paths)), '/');
 	}
 
 	/**

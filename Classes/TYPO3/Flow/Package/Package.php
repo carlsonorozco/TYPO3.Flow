@@ -430,6 +430,18 @@ class Package implements PackageInterface {
 		}
 		return $classFiles;
 	}
+
+	public function __sleep() {
+		$properties = get_class_vars(__CLASS__);
+		unset($properties['packageManager']);
+		return array_keys($properties);
+	}
+
+	public function __wakeup() {
+		if (isset($GLOBALS['TYPO3_currentPackageManager'])) {
+			$this->packageManager = $GLOBALS['TYPO3_currentPackageManager'];
+		}
+	}
 }
 
 ?>
