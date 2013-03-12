@@ -159,7 +159,7 @@ TYPO3:
        'symfony.console' : ['Symfony\\Component\\Console\\Tests\\.*']
        'mikey179.vfsStream' : ['.*']
        # workaround, should rather be deactivated
-       'typo3.flowcomposerinstallers': ['.*']
+       'composer/installers': ['.*']
 
     package:
 
