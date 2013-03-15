@@ -228,6 +228,7 @@ abstract class FunctionalTestCase extends \TYPO3\Flow\Tests\BaseTestCase {
 		if ($this->securityContext !== NULL) {
 			$this->securityContext->clearContext();
 		}
+		\TYPO3\Flow\Reflection\ObjectAccess::setProperty($this->authenticationManager, 'isAuthenticated', NULL, TRUE);
 	}
 
 	/**
